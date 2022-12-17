@@ -1,4 +1,4 @@
 # Tic-Tac-Toe
 
-##To play it
+##To play it <br>
 Open the main.py and then run the code
