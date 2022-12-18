@@ -9,13 +9,14 @@ Window {
     height: 768
     title: "Tic Tac Toe"
     flags: Qt.FramelessWindowHint
-    id:root
+    id:win
     Rectangle{
         anchors.fill:parent
         border.width: 1
         border.color: "red"
         color:"#000"
         Rectangle{
+            id:titleBar
             Label{
                 color:"black"
                 font.family : "Hack"
@@ -24,6 +25,21 @@ Window {
                 anchors.left: parent.left
                 font.pixelSize: 17
                 anchors.leftMargin: 10
+            }
+            MouseArea{
+                anchors.fill: parent
+                //drag.target: Item{}
+            property variant clickPos: "1,1"
+
+            onPressed: {
+                clickPos  = Qt.point(mouseX,mouseY)
+            }
+
+            onPositionChanged: {
+                var delta = Qt.point(mouseX-clickPos.x, mouseY-clickPos.y)
+                win.x += delta.x;
+                win.y += delta.y;
+            }
             }
             Button{
                 height: parent.height
@@ -35,7 +51,7 @@ Window {
                 height: parent.height
                 width: parent.height
                 x:parent.width - width*2
-                onClicked: root.showMinimized()
+                onClicked: win.showMinimized()
             }
             color: "red"
             x:0
